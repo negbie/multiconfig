@@ -8,7 +8,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/pelletier/go-toml"
+	"github.com/BurntSushi/toml"
 	yaml "gopkg.in/yaml.v2"
 )
 
@@ -46,8 +46,7 @@ func (t *TOMLLoader) Load(s interface{}) error {
 		return ErrSourceNotSet
 	}
 
-	d := toml.NewDecoder(r)
-	if err := d.Decode(s); err != nil {
+	if _, err := toml.DecodeReader(r, s); err != nil {
 		return err
 	}
 
